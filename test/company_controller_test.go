@@ -27,11 +27,10 @@ func TestShowAll(t *testing.T) {
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
-	var companies *[]models.Company
+	var companies []models.Company
 	json.Unmarshal(w.Body.Bytes(), &companies)
 
 	assert.Equal(t, http.StatusOK, w.Code)
-	//assert.NotEmpty(t, companies)
 
 }
 
@@ -49,5 +48,5 @@ func TestCreate(t *testing.T) {
 
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
-	assert.Equal(t, http.StatusCreated, w.Code)
+	assert.Equal(t, 200, w.Code)
 }

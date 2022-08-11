@@ -9,10 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	repo    repositories.CompanyRepository = repositories.CompanyRepository{}
-	service services.CompanyService        = *services.NewCompanyService(&repo)
-)
+// var (
+// 	repo    repositories.CompanyRepository = repositories.CompanyRepository{}
+// 	service services.CompanyService        = *services.NewCompanyService(&repo)
+// )
 
 func Show(c *gin.Context) {
 	id := c.Param("id")
@@ -21,6 +21,8 @@ func Show(c *gin.Context) {
 		c.JSON(400, gin.H{"error": "ID has to be integer"})
 		return
 	}
+	repo := &repositories.CompanyRepository{}
+	service := services.NewCompanyService(repo)
 
 	result, err := service.ShowCompany(int(newid))
 
@@ -32,7 +34,8 @@ func Show(c *gin.Context) {
 }
 
 func ShowAll(c *gin.Context) {
-
+	repo := &repositories.CompanyRepository{}
+	service := services.NewCompanyService(repo)
 	result, err := service.ShowAllCompanies()
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -50,6 +53,8 @@ func Create(c *gin.Context) {
 
 		return
 	}
+	repo := &repositories.CompanyRepository{}
+	service := services.NewCompanyService(repo)
 
 	result, err := service.CreateCompany(com)
 	if err != nil {
@@ -68,6 +73,8 @@ func Update(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+	repo := &repositories.CompanyRepository{}
+	service := services.NewCompanyService(repo)
 
 	err = service.UpdateCompany(com)
 	if err != nil {
@@ -87,6 +94,8 @@ func Delete(c *gin.Context) {
 
 		return
 	}
+	repo := &repositories.CompanyRepository{}
+	service := services.NewCompanyService(repo)
 
 	result, err := service.DeleteCompany(int(newid))
 	if err != nil {
@@ -98,5 +107,5 @@ func Delete(c *gin.Context) {
 	c.JSON(200, result)
 }
 
-//	repo := &repositories.CompanyRepository{}
-//	service := services.NewCompanyService(repo)
+// repo := &repositories.CompanyRepository{}
+// service := services.NewCompanyService(repo)
