@@ -3,7 +3,9 @@ package test
 import (
 	"bytes"
 	"encoding/json"
+	"testcompany/config"
 	"testcompany/controllers"
+	"testcompany/database"
 	"testcompany/models"
 
 	"net/http"
@@ -15,6 +17,9 @@ import (
 )
 
 func TestShowAll(t *testing.T) {
+
+	config.Init()
+	database.StartDatabase()
 
 	r := gin.Default()
 
@@ -35,6 +40,10 @@ func TestShowAll(t *testing.T) {
 }
 
 func TestCreate(t *testing.T) {
+
+	config.Init()
+	database.StartDatabase()
+
 	r := gin.Default()
 	r.POST("/company/", controllers.Create)
 
